@@ -1,0 +1,13 @@
+{% extends "cd/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<article class="blog-post">
+    <p class="blog-post-meta">{{ post.publish }} by <a href="#">{{ post.author }}</a></p>
+    <h4 class="display-10 link-body-emphasis mb-1">
+        {{ post.title }}
+    </h4>
+    <p>{{ post.body|linebreaks }}</p>
+</article>
+{% endblock %}
