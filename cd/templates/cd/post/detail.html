@@ -9,5 +9,10 @@
         {{ post.title }}
     </h4>
     <p>{{ post.body|linebreaks }}</p>
+    <p>
+        <a href="{% url 'cd:post_share' post.id %}" target="_blank" title="share this post">
+            <i class="fa fa-share"></i>
+        </a>
+    </p>
 </article>
 {% endblock %}
