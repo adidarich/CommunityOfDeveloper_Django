@@ -14,5 +14,22 @@
             <i class="fa fa-share"></i>
         </a>
     </p>
+        {% with comments.count as total_comments %}
+            <h6>
+                comment{{ total_comments|pluralize }} {{ total_comments }}
+            </h6>
+        {% endwith %}
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+                    Comment {{ forloop.counter }} by {{ comment.name }}
+                    {{ comment.created }}
+                </p>
+                {{ comment.body|linebreaks }}
+            </div>
+        {% empty %}
+            <p>There are no comments</p>
+        {% endfor %}
+        {% include "cd/post/includes/comment_form.html" %}
 </article>
 {% endblock %}

@@ -4,10 +4,11 @@
 
 {% block content %}
  {% if sent %}
-   <h4>E-mail successfully sent</h4>
-    <p class="blog-post-meta">
+   <h4>E-mail successfully sent</h4><hr>
+    <h5 class="blog-post-meta">
         <b><em>"{{ post.title }}"</em></b> was successfully sent to {{ form.cleaned_data.to }}.
-    </p>
+    </h5>
+
  {% else %}
     <h3>Share "{{ post.title }}" by e-mail</h3>
     <form method="post" novalidate>
@@ -28,6 +29,5 @@
             <button class="btn btn-primary py-1 px-2 Send e-mail"
                     type="submit" >Send e-mail</button>
     </form>
-
  {% endif %}
 {% endblock %}

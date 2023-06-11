@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post
+from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import EmailPostForm
+from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
+from django.views.decorators.http import require_POST
 
 
 def post_list(request):
@@ -37,8 +38,12 @@ def post_detail(request, year, month, day, post):
                              publish__year=year,
                              publish__month=month,
                              publish__day=day)
+    # Список активных комментариев к этому посту
+    comments = post.comments.filter(active=True)
+    # Форма для комментирования пользователями
+    form = CommentForm()
 
-    return render(request, 'cd/post/detail.html', {'post': post})
+    return render(request, 'cd/post/detail.html', {'post': post, 'comments': comments, 'form': form})
 
 
 def post_share(request, post_id):
@@ -60,3 +65,24 @@ def post_share(request, post_id):
         form = EmailPostForm()
     return render(request, 'cd/post/share.html',
                   {'post': post, 'form': form, 'sent': sent})
+
+
+@require_POST
+def post_comment(request, post_id):
+    post = get_object_or_404(
+        Post,
+        id=post_id,
+        status=Post.Status.PUBLISHED
+    )  # по id поста извлекается опубликованный пост, используя функцию сокращенного доступа get_object_or_404
+    comment = None  # хранения комментарного объекта при его создании
+    # Комментарий был отправлен
+    form = CommentForm(data=request.POST)
+    if form.is_valid():
+        # Создать объект класса Comment, не сохраняя его в базе данных
+        comment = form.save(commit=False)  # подход позволяет видоизменять объект перед его окончательным сохранением
+        comment.post = post  # пост назначается созданному комментарию
+        # Сохранить комментарий в базе данных
+        comment.save()
+    return render(request,
+                  'cd/post/comment.html',
+                  {'post': post, 'form': form, 'comment': comment})

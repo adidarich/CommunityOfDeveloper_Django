@@ -14,7 +14,17 @@
         <p>{{ post.body|truncatewords:30|linebreaks }}</p>
         <a href="{{ post.get_absolute_url }}" class="btn btn-light">
                 <span>Learn More →</span></a><hr>
+        <p>
+            <a href="{% url 'cd:post_share' post.id %}" target="_blank" title="share this post">
+                <i class="fa fa-share"></i>
+            </a>
+            <a href="{% url 'cd:post_share' post.id %}" title="comments">
+                <i class="far fa-comment"></i>
+            </a>
+         </p>
+
     </article>
     {% endfor %}
     {% include "pagination.html" with page=posts %}
 {% endblock %}
+
