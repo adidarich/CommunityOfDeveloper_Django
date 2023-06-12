@@ -1,0 +1,26 @@
+{% extends "cd/base.html" %}
+
+{% block title %}Comments{% endblock %}
+
+{% block content %}
+<h3 class="blog-post-meta">
+    {{ post.title }}
+</h3>
+    <form method="post">
+        {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                    <div class="control-group">
+                        {{ field }}
+                    </div>
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endfor %}
+                {% endif %}
+            {% endfor %}
+        <p><input type="submit" value="Add comment"></p>
+    </form>
+{% endblock %}
