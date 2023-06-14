@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'comofdev',
         'USER': 'cd',
-        'PASSWORD': 'comdev',
+        'PASSWORD': 'xxxxxx',
         'HOST': '127.0.0.1'  # добавляем HOST если выходит ошибка PEER
     }
 }
