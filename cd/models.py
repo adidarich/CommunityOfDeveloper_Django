@@ -24,6 +24,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='cd_posts')
     body = models.TextField()
+    image = models.ImageField(upload_to='images/%Y/%m/%d', default=True, null=False, blank=False)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)  # дата будет сохраняться автоматически во время создания объекта
     updated = models.DateTimeField(auto_now=True)  # дата будет обновляться автоматически во время сохранения объекта
