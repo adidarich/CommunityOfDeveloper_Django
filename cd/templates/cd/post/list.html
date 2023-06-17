@@ -4,17 +4,27 @@
 {% block title %}Public{% endblock %}
 
 {% block content %}
-    {% for post in posts %}
+{% for post in posts %}
 <article class="blog-post" xmlns="http://www.w3.org/1999/html">
-        <p class="blog-post-meta">{{ post.publish }} by <a href="#">{{ post.author }}</a></p>
-        <h4 class="display-10 link-body-emphasis mb-1">
-          <a href="{{ post.get_absolute_url }}">
+    <p class="blog-post-meta">{{ post.publish }} by <a href="#">{{ post.author }}</a></p>
+    <h4 class="display-10 link-body-emphasis mb-1">
+        <a href="{{ post.get_absolute_url }}">
             {{ post.title }}
-          </a>
-        </h4>
-        <p>{{ post.body|markdown|truncatewords_html:30 }}</p>
+        </a>
+    </h4>
+    <p>{{ post.body|markdown|truncatewords_html:30 }}</p>
+
+    <div class="col-lg-12 mb-2">
+        <div class="shadow mb-4">
+            <div class="position-relative">
+                <img class="img-fluid w-100" src="{{ post.image.url }}" alt="post image">
+            </div>
+        </div>
+    </div>
+
         <a href="{{ post.get_absolute_url }}" class="btn btn-light">
-                <span>Learn More →</span></a><hr>
+            <span>Learn More →</span></a>
+        <hr>
         <p>
             <a href="{% url 'cd:post_comment_list' post.id %}" title="comments">
                 <i class="far fa-comment"></i>
@@ -24,9 +34,9 @@
                 <i class="fa fa-share"></i>
             </a>
 
-         </p>
+        </p>
 
-    </article>
-    {% endfor %}
-    {% include "pagination.html" with page=posts %}
+</article>
+{% endfor %}
+{% include "pagination.html" with page=posts %}
 {% endblock %}
