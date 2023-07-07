@@ -32,6 +32,7 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
+    'registration.apps.RegistrationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -83,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'comofdev',
         'USER': 'cd',
-        'PASSWORD': 'xxxxxx',
+        'PASSWORD': 'comdev',
         'HOST': '127.0.0.1'  # добавляем HOST если выходит ошибка PEER
     }
 }
@@ -121,18 +122,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'cd/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# # Основной url для управления медиафайлами
-# MEDIA_URL = 'media/'  # это URL-адрес, который будет обслуживать медиафайлы
-#
-# # Путь хранения картинок
-# MEDIA_ROOT = BASE_DIR / 'media'  # это путь к корневому каталогу, в котором хранятся файлы.
+# Основной url для управления медиафайлами
+MEDIA_URL = 'media/'  # это URL-адрес, который будет обслуживать медиафайлы
+
+# Путь хранения картинок
+MEDIA_ROOT = BASE_DIR / 'media'  # это путь к корневому каталогу, в котором хранятся файлы.
 
 # Конфигурация сервера электронной почты
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
